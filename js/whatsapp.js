@@ -8,12 +8,16 @@ const WhatsApp = {
      * @param {Array} items - Los items del carrito
      * @param {Object} config - La configuración de la tienda
      */
-    enviarPedido: (items, config) => {
-        if (items.length === 0) return;
+    enviarPedido: (items, config, win) => {
+        if (items.length === 0) {
+            if (win) win.close();
+            return;
+        }
 
         const { whatsapp, nombreTienda } = config;
         
         if (!whatsapp || whatsapp.trim() === "") {
+            if (win) win.close();
             alert("⚠️ Por favor, configura tu número de WhatsApp en la sección 'Configuración' del Panel Admin.");
             return;
         }
@@ -45,7 +49,11 @@ const WhatsApp = {
         const encodedMensaje = encodeURIComponent(mensaje);
         const url = `https://wa.me/${cleanPhone}?text=${encodedMensaje}`;
         
-        window.open(url, '_blank');
+        if (win) {
+            win.location.href = url;
+        } else {
+            window.open(url, '_blank');
+        }
     }
 };
 
