@@ -11,8 +11,16 @@ const WhatsApp = {
     enviarPedido: (items, config) => {
         if (items.length === 0) return;
 
-        const { whatsapp, mensajeTemplate, nombreTienda } = config;
+        const { whatsapp, nombreTienda } = config;
         
+        if (!whatsapp || whatsapp.trim() === "") {
+            alert("⚠️ Por favor, configura tu número de WhatsApp en la sección 'Configuración' del Panel Admin.");
+            return;
+        }
+
+        // Limpiar el número: dejar solo dígitos
+        const cleanPhone = whatsapp.replace(/\D/g, '');
+
         let total = 0;
         let listaProductos = '';
 
@@ -35,7 +43,7 @@ const WhatsApp = {
                         `Quedo atenta/o a la confirmación. ¡Gracias!`;
 
         const encodedMensaje = encodeURIComponent(mensaje);
-        const url = `https://wa.me/${whatsapp}?text=${encodedMensaje}`;
+        const url = `https://wa.me/${cleanPhone}?text=${encodedMensaje}`;
         
         window.open(url, '_blank');
     }
