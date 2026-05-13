@@ -15,9 +15,12 @@ const Carrito = {
     setupEventListeners: () => {
         document.getElementById('btn-cart-open').addEventListener('click', Carrito.abrir);
         document.getElementById('btn-cart-close').addEventListener('click', Carrito.cerrar);
-        document.getElementById('btn-whatsapp-send').addEventListener('click', async () => {
-            const config = await Storage.getConfig();
-            WhatsApp.enviarPedido(Carrito.items, config);
+        document.getElementById('btn-whatsapp-send').addEventListener('click', () => {
+            // Abrir ventana inmediatamente para evitar bloqueo de popups
+            const win = window.open('', '_blank');
+            Storage.getConfig().then(config => {
+                WhatsApp.enviarPedido(Carrito.items, config, win);
+            });
         });
     },
 
