@@ -13,19 +13,19 @@ const Carrito = {
     },
 
     setupEventListeners: () => {
-        document.getElementById('btn-cart-open').addEventListener('click', Carrito.openDrawer);
-        document.getElementById('btn-cart-close').addEventListener('click', Carrito.closeDrawer);
-        document.getElementById('btn-whatsapp-send').addEventListener('click', () => {
-            const config = Storage.getConfig();
+        document.getElementById('btn-cart-open').addEventListener('click', Carrito.abrir);
+        document.getElementById('btn-cart-close').addEventListener('click', Carrito.cerrar);
+        document.getElementById('btn-whatsapp-send').addEventListener('click', async () => {
+            const config = await Storage.getConfig();
             WhatsApp.enviarPedido(Carrito.items, config);
         });
     },
 
-    openDrawer: () => {
+    abrir: () => {
         document.getElementById('cart-drawer').classList.remove('translate-x-full');
     },
 
-    closeDrawer: () => {
+    cerrar: () => {
         document.getElementById('cart-drawer').classList.add('translate-x-full');
     },
 
