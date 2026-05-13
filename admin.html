@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - Catálogo CQ</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="css/custom.css">
+    <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js"></script>
+</head>
+<body class="bg-gray-50 flex h-screen overflow-hidden">
+
+    <!-- Sidebar -->
+    <aside class="w-64 bg-gray-900 text-white flex flex-col h-full shadow-xl">
+        <div class="p-6 border-b border-gray-800 flex items-center gap-3">
+            <div class="w-10 h-10 bg-red-600 rounded-lg flex items-center justify-center font-bold italic text-xl">CQ</div>
+            <span class="text-xl font-bold tracking-tight">CQ Admin</span>
+        </div>
+
+        <nav class="flex-1 p-4 space-y-2 overflow-y-auto">
+            <button data-section="productos" class="nav-btn w-full flex items-center gap-3 px-4 py-3 rounded-xl bg-red-600 text-white font-medium transition-all">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" /></svg>
+                Productos
+            </button>
+            <button data-section="categorias" class="nav-btn w-full flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-gray-800 text-gray-400 hover:text-white transition-all">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 10h16M4 14h16M4 18h16" /></svg>
+                Categorías
+            </button>
+            <button data-section="carga-masiva" class="nav-btn w-full flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-gray-800 text-gray-400 hover:text-white transition-all">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 13h6m-3-3v6m-9 1V7a2 2 0 012-2h6l2 2h6a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2z" /></svg>
+                Carga Masiva
+            </button>
+            <button data-section="configuracion" class="nav-btn w-full flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-gray-800 text-gray-400 hover:text-white transition-all">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" /><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
+                Configuración
+            </button>
+            <button data-section="publicar" class="nav-btn w-full flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-gray-800 text-gray-400 hover:text-white transition-all">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" /></svg>
+                Compartir Link
+            </button>
+            <a href="index.html" target="_blank" class="w-full flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-gray-800 text-gray-400 hover:text-white transition-all">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" /></svg>
+                Vista Previa
+            </a>
+        </nav>
+
+        <div class="p-4 border-t border-gray-800">
+            <button id="btn-logout" class="w-full flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-red-900/20 text-red-400 hover:text-red-300 transition-all font-medium">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" /></svg>
+                Cerrar Sesión
+            </button>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="flex-1 flex flex-col h-full overflow-hidden">
+        <!-- Header -->
+        <header class="bg-white border-b border-gray-200 px-8 py-4 flex items-center justify-between">
+            <div>
+                <div id="breadcrumbs" class="flex items-center gap-2 text-xs text-gray-400 font-bold uppercase mb-1 hidden">
+                    <button onclick="exitColeccion()" class="hover:text-red-600">Productos</button>
+                    <span>/</span>
+                    <span id="current-col-name" class="text-red-600">Nombre Colección</span>
+                </div>
+                <h2 id="section-title" class="text-2xl font-bold text-gray-800">Productos</h2>
+            </div>
+            <div class="flex items-center gap-4">
+                <button id="btn-export" class="px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-lg text-sm font-medium transition-all flex items-center gap-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" /></svg>
+                    Exportar
+                </button>
+                <button id="btn-import" class="px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-lg text-sm font-medium transition-all flex items-center gap-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" /></svg>
+                    Importar
+                </button>
+                <div id="header-action">
+                    <!-- Dinámico -->
+                </div>
+            </div>
+        </header>
+
+        <!-- Content Area -->
+        <div id="section-content" class="flex-1 overflow-y-auto p-8">
+            <!-- Cargando... -->
+        </div>
+    </main>
+
+    <!-- Modal Producto -->
+    <div id="modal-producto" class="fixed inset-0 bg-black/50 hidden z-50 flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl w-full max-w-4xl max-h-[90vh] overflow-hidden flex flex-col shadow-2xl scale-95 transition-transform duration-300">
+            <div class="p-6 border-b border-gray-100 flex items-center justify-between">
+                <h3 id="modal-title" class="text-xl font-bold text-gray-800">Agregar Producto</h3>
+                <button class="close-modal text-gray-400 hover:text-gray-600">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>
+                </button>
+            </div>
+            <form id="form-producto" class="flex-1 overflow-y-auto p-8 grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- Columna Izquierda -->
+                <div class="space-y-6">
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-700 mb-2">Nombre del Producto *</label>
+                        <input type="text" id="prod-nombre" name="nombre" required class="w-full px-4 py-2 border rounded-xl focus:ring-2 focus:ring-red-500 outline-none">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-700 mb-2">Descripción</label>
+                        <textarea id="prod-descripcion" name="descripcion" rows="3" class="w-full px-4 py-2 border rounded-xl focus:ring-2 focus:ring-red-500 outline-none"></textarea>
+                    </div>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-sm font-semibold text-gray-700 mb-2">Categoría</label>
+                            <select id="prod-categoria" name="categoria" class="w-full px-4 py-2 border rounded-xl focus:ring-2 focus:ring-red-500 outline-none"></select>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-semibold text-gray-700 mb-2">Precio Base (COP) *</label>
+                            <input type="number" id="prod-precio" name="precio" required class="w-full px-4 py-2 border rounded-xl focus:ring-2 focus:ring-red-500 outline-none">
+                        </div>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-700 mb-2">Precio con Descuento (Opcional)</label>
+                        <input type="number" id="prod-precio-desc" name="precio_descuento" class="w-full px-4 py-2 border rounded-xl focus:ring-2 focus:ring-red-500 outline-none">
+                    </div>
+                    
+                    <div class="space-y-4">
+                        <label class="flex items-center gap-3 cursor-pointer p-3 bg-gray-50 rounded-xl hover:bg-gray-100 transition-all">
+                            <input type="checkbox" id="prod-activo" name="activo" checked class="w-5 h-5 accent-red-600">
+                            <span class="text-sm font-medium text-gray-700">Producto Activo (Visible en catálogo)</span>
+                        </label>
+                        <label class="flex items-center gap-3 cursor-pointer p-3 bg-gray-50 rounded-xl hover:bg-gray-100 transition-all">
+                            <input type="checkbox" id="prod-stock" name="stock" checked class="w-5 h-5 accent-red-600">
+                            <span class="text-sm font-medium text-gray-700">Stock Disponible</span>
+                        </label>
+                        <label class="flex items-center gap-3 cursor-pointer p-3 bg-gray-50 rounded-xl hover:bg-gray-100 transition-all">
+                            <input type="checkbox" id="prod-destacado" name="destacado" class="w-5 h-5 accent-red-600">
+                            <span class="text-sm font-medium text-gray-700">Producto Destacado</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Columna Derecha -->
+                <div class="space-y-6">
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-700 mb-2">Tallas Disponibles (Separar por comas)</label>
+                        <input type="text" id="prod-tallas" placeholder="S, M, L, XL" class="w-full px-4 py-2 border rounded-xl outline-none focus:ring-2 focus:ring-red-500">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-700 mb-2">Colores (Ej: Rojo #E4002B, Negro #000)</label>
+                        <input type="text" id="prod-colores" placeholder="Rojo #ff0000, Azul #0000ff" class="w-full px-4 py-2 border rounded-xl outline-none focus:ring-2 focus:ring-red-500">
+                    </div>
+                    
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-700 mb-2">Imágenes del Producto</label>
+                        <div id="image-dropzone" class="drop-zone p-8 rounded-xl flex flex-col items-center justify-center text-gray-400 cursor-pointer hover:bg-gray-50">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 mb-2" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg>
+                            <span class="text-sm">Arrastra imágenes o haz click</span>
+                            <input type="file" id="prod-img-input" multiple accept="image/*" class="hidden">
+                        </div>
+                        <div id="image-previews" class="grid grid-cols-3 gap-2 mt-4"></div>
+                    </div>
+                </div>
+            </form>
+            <div class="p-6 border-t border-gray-100 flex items-center justify-end gap-4 bg-gray-50">
+                <button class="close-modal px-6 py-2 text-gray-600 font-medium hover:bg-gray-200 rounded-xl transition-all">Cancelar</button>
+                <button id="btn-save-product" class="px-8 py-2 bg-red-600 text-white font-bold rounded-xl shadow-lg shadow-red-600/30 hover:bg-red-700 transition-all">Guardar Producto</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Otros modales (Categoría, Config) se manejarán dinámicamente -->
+
+    <!-- Modal Colección -->
+    <div id="modal-coleccion" class="fixed inset-0 bg-black/50 hidden z-50 flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl w-full max-w-md shadow-2xl scale-95 transition-transform duration-300">
+            <div class="p-6 border-b border-gray-100 flex items-center justify-between">
+                <h3 id="col-modal-title" class="text-xl font-bold text-gray-800">Crear Colección</h3>
+                <button onclick="closeColModal()" class="text-gray-400 hover:text-gray-600">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>
+                </button>
+            </div>
+            <div class="p-8 space-y-6">
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700 mb-2">Nombre de la Colección</label>
+                    <input type="text" id="col-nombre" class="w-full px-4 py-2 border rounded-xl focus:ring-2 focus:ring-red-500 outline-none">
+                </div>
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700 mb-2">Imagen de Portada (Opcional)</label>
+                    <div id="col-img-dropzone" class="drop-zone p-6 rounded-xl flex flex-col items-center justify-center text-gray-400 cursor-pointer hover:bg-gray-50">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 mb-2" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg>
+                        <span class="text-xs">Imagen para la carpeta</span>
+                        <input type="file" id="col-img-input" accept="image/*" class="hidden">
+                    </div>
+                    <div id="col-img-preview" class="mt-4 hidden">
+                        <img src="" class="w-full h-40 object-cover rounded-xl">
+                    </div>
+                </div>
+            </div>
+            <div class="p-6 border-t border-gray-100 flex items-center justify-end gap-4 bg-gray-50 rounded-b-2xl">
+                <button onclick="closeColModal()" class="px-6 py-2 text-gray-600 font-medium hover:bg-gray-200 rounded-xl transition-all">Cancelar</button>
+                <button id="btn-save-coleccion" class="px-8 py-2 bg-red-600 text-white font-bold rounded-xl shadow-lg shadow-red-600/30 hover:bg-red-700 transition-all">Guardar Carpeta</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="toast-container"></div>
+    <input type="file" id="import-input" accept=".json" class="hidden">
+
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-storage-compat.js"></script>
+    <script src="js/firebase-config.js"></script>
+
+    <!-- JS -->
+    <script src="js/utils.js"></script>
+    <script src="js/data.js"></script>
+    <script src="js/storage.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/admin.js"></script>
+</body>
+</html>

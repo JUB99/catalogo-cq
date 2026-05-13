@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catálogo CQ - Ropa Deportiva</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="css/custom.css">
+    <!-- StPageFlip -->
+    <script src="https://cdn.jsdelivr.net/npm/page-flip@2.0.7/dist/js/page-flip.browser.min.js"></script>
+</head>
+<body class="bg-gray-100 min-h-screen overflow-x-hidden">
+
+    <!-- Header -->
+    <header id="main-header" class="fixed top-0 left-0 right-0 z-40 transition-all duration-300 py-4 px-6 md:px-12 flex items-center justify-between">
+        <div class="flex items-center gap-4">
+            <button id="btn-back-to-cols" class="hidden w-10 h-10 bg-white/20 backdrop-blur-md rounded-full flex items-center justify-center text-gray-800 hover:bg-red-600 hover:text-white transition-all shadow-lg">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" /></svg>
+            </button>
+            <div class="flex items-center gap-2">
+                <div class="w-10 h-10 bg-red-600 rounded-lg flex items-center justify-center font-bold italic text-white text-xl shadow-lg shadow-red-600/30">CQ</div>
+                <span id="store-name" class="text-xl font-black text-gray-900 tracking-tighter hidden md:block">CATÁLOGO CQ</span>
+            </div>
+        </div>
+
+        <nav class="hidden md:flex items-center gap-8">
+            <a href="#" class="text-sm font-bold text-gray-800 hover:text-red-600 transition-all uppercase tracking-widest">Inicio</a>
+            <a href="#catalogo" class="text-sm font-bold text-gray-800 hover:text-red-600 transition-all uppercase tracking-widest">Colecciones</a>
+            <a href="#contacto" class="text-sm font-bold text-gray-800 hover:text-red-600 transition-all uppercase tracking-widest">Contacto</a>
+        </nav>
+
+        <button id="btn-cart-open" class="relative p-3 bg-white rounded-full shadow-lg hover:shadow-xl transition-all active:scale-95 group">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-800 group-hover:text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
+            </svg>
+            <span id="cart-count" class="absolute -top-1 -right-1 w-5 h-5 bg-red-600 text-white text-[10px] font-bold flex items-center justify-center rounded-full border-2 border-white">0</span>
+        </button>
+    </header>
+
+    <!-- VISTA 0: COLECCIONES -->
+    <section id="collections-view" class="pt-32 pb-20 px-6 min-h-screen">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-16 animate-fade-in">
+                <h2 class="text-5xl font-black italic text-gray-900 tracking-tighter uppercase mb-4">Explora Nuestras Colecciones</h2>
+                <p class="text-gray-500 font-medium max-w-lg mx-auto">Selecciona una categoría para ver los productos interactivos.</p>
+            </div>
+            <div id="collections-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Se inyecta por JS -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Desktop: Slider Layout -->
+    <section id="desktop-view" class="hidden md:flex flex-col items-center justify-center min-h-screen pt-20 pb-10">
+        <div class="relative max-w-6xl w-full">
+            <!-- Slider Container -->
+            <div id="slider-container" class="w-full aspect-[16/9] bg-white rounded-[3rem] shadow-2xl overflow-hidden relative group">
+                <div id="slider-track" class="flex h-full transition-transform duration-500 ease-out">
+                    <!-- Slides se inyectan aquí -->
+                </div>
+
+                <!-- Botones Laterales (Opcional, flotantes sobre el slide) -->
+                <button id="slide-prev" class="absolute left-6 top-1/2 -translate-y-1/2 w-14 h-14 bg-white/20 backdrop-blur-md text-white rounded-full flex items-center justify-center hover:bg-red-600 transition-all opacity-0 group-hover:opacity-100 z-10">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" /></svg>
+                </button>
+                <button id="slide-next" class="absolute right-6 top-1/2 -translate-y-1/2 w-14 h-14 bg-white/20 backdrop-blur-md text-white rounded-full flex items-center justify-center hover:bg-red-600 transition-all opacity-0 group-hover:opacity-100 z-10">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" /></svg>
+                </button>
+            </div>
+            
+            <!-- Indicador de Páginas -->
+            <div class="mt-8 flex items-center justify-center gap-6">
+                <div class="bg-white px-8 py-3 rounded-full shadow-xl border border-gray-100 text-sm font-bold text-gray-800">
+                    Producto <span id="slide-current">1</span> de <span id="slide-total">1</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Mobile: Vertical Scroll Layout -->
+    <section id="mobile-view" class="md:hidden pt-24 pb-20 px-4">
+        <!-- Hero Mobile -->
+        <div id="mobile-hero" class="mb-10 rounded-3xl overflow-hidden relative aspect-video bg-gray-900 flex items-center justify-center">
+            <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div>
+            <div class="relative text-center p-6">
+                <h1 id="mobile-hero-title" class="text-3xl font-black text-white italic tracking-tighter">NUEVA COLECCIÓN</h1>
+                <p id="mobile-hero-subtitle" class="text-red-500 font-bold text-sm tracking-widest mt-2 uppercase">Entrenamiento Elite</p>
+            </div>
+        </div>
+
+        <!-- Categorías Mobile -->
+        <div id="mobile-cats" class="flex gap-3 overflow-x-auto pb-6 scrollbar-hide mb-8">
+            <!-- Dinámico -->
+        </div>
+
+        <!-- Grid Productos Mobile -->
+        <div id="mobile-products-grid" class="grid grid-cols-2 gap-4">
+            <!-- Dinámico -->
+        </div>
+    </section>
+
+    <!-- Modal Detalle Producto -->
+    <div id="modal-detalle" class="fixed inset-0 z-50 hidden flex items-end md:items-center justify-center p-0 md:p-4">
+        <div class="absolute inset-0 bg-black/60 backdrop-blur-sm close-detail-modal"></div>
+        <div class="relative bg-white w-full max-w-4xl max-h-[95vh] md:rounded-3xl overflow-hidden shadow-2xl flex flex-col md:flex-row animate-fade-in translate-y-full md:translate-y-0 transition-transform duration-500 rounded-t-3xl" id="detail-modal-box">
+            <!-- Botón Cerrar (Solo Móvil) -->
+            <button class="md:hidden absolute top-4 right-4 z-10 bg-white/20 backdrop-blur-md text-white p-2 rounded-full close-detail-modal">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>
+            </button>
+
+            <!-- Galería -->
+            <div class="w-full md:w-1/2 aspect-[4/5] bg-gray-100 relative group">
+                <div id="detail-images" class="w-full h-full flex overflow-x-auto snap-x snap-mandatory scrollbar-hide">
+                    <!-- Imágenes se inyectan aquí -->
+                </div>
+                <div id="image-dots" class="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2"></div>
+            </div>
+
+            <!-- Info -->
+            <div class="w-full md:w-1/2 p-8 overflow-y-auto max-h-full">
+                <div class="flex justify-between items-start mb-4">
+                    <div>
+                        <p id="detail-cat" class="text-xs font-bold text-red-600 uppercase tracking-widest mb-1"></p>
+                        <h2 id="detail-nombre" class="text-3xl font-black text-gray-900 italic tracking-tighter"></h2>
+                    </div>
+                    <button class="hidden md:block text-gray-400 hover:text-gray-900 transition-all close-detail-modal">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>
+                    </button>
+                </div>
+
+                <div class="flex items-center gap-4 mb-6">
+                    <span id="detail-precio" class="text-3xl font-black text-red-600"></span>
+                    <span id="detail-precio-old" class="text-lg text-gray-400 line-through"></span>
+                </div>
+
+                <p id="detail-desc" class="text-gray-600 text-sm leading-relaxed mb-8"></p>
+
+                <!-- Selectores -->
+                <div class="space-y-6 mb-8">
+                    <div id="selector-talla" class="hidden">
+                        <label class="block text-xs font-bold text-gray-400 uppercase tracking-widest mb-3">Seleccionar Talla</label>
+                        <div class="flex flex-wrap gap-3" id="tallas-list"></div>
+                    </div>
+
+                    <div id="selector-color" class="hidden">
+                        <label class="block text-xs font-bold text-gray-400 uppercase tracking-widest mb-3">Seleccionar Color</label>
+                        <div class="flex flex-wrap gap-4" id="colores-list"></div>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-bold text-gray-400 uppercase tracking-widest mb-3">Cantidad</label>
+                        <div class="flex items-center gap-4">
+                            <div class="flex items-center border-2 border-gray-100 rounded-2xl p-1 bg-gray-50">
+                                <button id="btn-qty-minus" class="w-10 h-10 flex items-center justify-center font-bold text-gray-600 hover:bg-white rounded-xl transition-all">-</button>
+                                <span id="detail-qty" class="w-10 text-center font-bold text-gray-900">1</span>
+                                <button id="btn-qty-plus" class="w-10 h-10 flex items-center justify-center font-bold text-gray-600 hover:bg-white rounded-xl transition-all">+</button>
+                            </div>
+                            <div class="flex-1 text-right">
+                                <span class="text-xs text-gray-400 uppercase block">Total Estimado</span>
+                                <span id="detail-total" class="text-xl font-black text-gray-900"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Botón Comprar -->
+                <button id="btn-add-to-cart" class="w-full py-5 bg-gray-900 text-white font-black italic text-xl tracking-tighter rounded-2xl shadow-xl hover:bg-red-600 hover:shadow-red-600/40 transition-all flex items-center justify-center gap-3 active:scale-95 group disabled:opacity-50 disabled:pointer-events-none">
+                    AGREGAR AL PEDIDO
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 transform group-hover:translate-x-2 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg>
+                </button>
+                <p id="variation-out-of-stock" class="hidden text-center text-red-600 text-xs font-bold mt-4 uppercase tracking-widest">Esta combinación está agotada</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Drawer Carrito -->
+    <div id="cart-drawer" class="fixed inset-y-0 right-0 z-[60] w-full max-w-md bg-white shadow-2xl transform translate-x-full transition-transform duration-500 ease-in-out flex flex-col">
+        <div class="p-6 border-b border-gray-100 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" /></svg>
+                <h3 class="text-xl font-black italic text-gray-900 tracking-tighter">MI PEDIDO</h3>
+            </div>
+            <button id="btn-cart-close" class="text-gray-400 hover:text-gray-900">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>
+            </button>
+        </div>
+
+        <div id="cart-items" class="flex-1 overflow-y-auto p-6 space-y-6">
+            <!-- Items de carrito -->
+        </div>
+
+        <div id="cart-footer" class="p-6 bg-gray-50 border-t border-gray-100 space-y-4">
+            <div class="flex items-center justify-between">
+                <span class="text-gray-500 font-bold uppercase text-xs tracking-widest">Total a pagar</span>
+                <span id="cart-total" class="text-3xl font-black text-gray-900 italic"></span>
+            </div>
+            <button id="btn-whatsapp-send" class="w-full py-5 bg-green-600 text-white font-black italic text-xl tracking-tighter rounded-2xl shadow-xl hover:bg-green-700 hover:shadow-green-600/40 transition-all flex items-center justify-center gap-3 active:scale-95 group">
+                HACER PEDIDO POR WHATSAPP
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
+                </svg>
+            </button>
+            <p class="text-[10px] text-gray-400 text-center uppercase tracking-widest">Al hacer click se abrirá WhatsApp con los detalles de tu pedido.</p>
+        </div>
+    </div>
+
+    <div id="toast-container"></div>
+
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-storage-compat.js"></script>
+    <script src="js/firebase-config.js"></script>
+
+    <!-- Scripts -->
+    <script src="js/utils.js"></script>
+    <script src="js/data.js"></script>
+    <script src="js/storage.js"></script>
+    <script src="js/carrito.js"></script>
+    <script src="js/whatsapp.js"></script>
+    <script src="js/flipbook.js"></script>
+    <script src="js/catalogo.js"></script>
+</body>
+</html>
