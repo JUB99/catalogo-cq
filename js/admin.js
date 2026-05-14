@@ -597,9 +597,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     window.deleteProduct = async (id) => {
         if (confirm('¿Estás seguro de eliminar este producto? Esta acción no se puede deshacer.')) {
-            const productos = (await Storage.getProductos()).filter(p => p.id !== id);
-            await Storage.saveProductos(productos);
-            await Storage.deleteImagenesByProducto(id);
+            await Storage.deleteProducto(id);
             Utils.showToast('Producto eliminado');
             renderSection('productos');
         }
