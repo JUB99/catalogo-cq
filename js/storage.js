@@ -198,6 +198,20 @@ const Storage = {
         }));
     },
 
+    deleteProducto: async (id) => {
+        if (Storage.isCloud()) {
+            // Borrar el documento del producto en Firestore
+            await window.FS.collection('productos').doc(id).delete();
+            // Borrar sus imágenes
+            await Storage.deleteImagenesByProducto(id);
+            return;
+        }
+        // Local Mode
+        const productos = (await Storage.getProductos()).filter(p => p.id !== id);
+        localStorage.setItem('cq_productos', JSON.stringify(productos));
+        await Storage.deleteImagenesByProducto(id);
+    },
+
     getColeccionById: async (id) => {
         if (Storage.isCloud()) {
             const doc = await window.FS.collection('colecciones').doc(id).get();
