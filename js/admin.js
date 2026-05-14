@@ -628,14 +628,11 @@ document.addEventListener('DOMContentLoaded', async () => {
 
         if (confirm(`¿Estás seguro de eliminar ${selected.length} productos seleccionados? Esta acción es irreversible.`)) {
             const idsToDelete = Array.from(selected).map(s => s.getAttribute('data-id'));
-            let productos = await Storage.getProductos();
             
             for (const id of idsToDelete) {
-                productos = productos.filter(p => p.id !== id);
-                await Storage.deleteImagenesByProducto(id);
+                await Storage.deleteProducto(id);
             }
 
-            await Storage.saveProductos(productos);
             Utils.showToast(`${idsToDelete.length} productos eliminados`);
             renderSection('productos');
         }
