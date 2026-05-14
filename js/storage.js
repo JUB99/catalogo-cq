@@ -28,7 +28,8 @@ const Storage = {
     // --- PRODUCTOS ---
     getProductos: async () => {
         if (Storage.isCloud()) {
-            const snapshot = await window.FS.collection('productos').get();
+            // Forzar obtener datos del servidor para evitar caché vieja
+            const snapshot = await window.FS.collection('productos').get({ source: 'server' });
             return snapshot.docs.map(doc => doc.data());
         }
         if (window.CQ_DATA && window.CQ_DATA.productos) return window.CQ_DATA.productos;
